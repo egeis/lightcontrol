@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lightcontrol",
+  "name": "Light Control",
+  "description": "Take Control of the light generating blocks.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Baedian"],
+  "credits": "The Forge and FML guys.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
