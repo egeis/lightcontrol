@@ -2,6 +2,7 @@ build/
 bin/
 eclipse/
 .settings/
+.gradle/
 
 .classpath
 .project
