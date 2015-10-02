@@ -38,6 +38,7 @@ public class ConfigPacket extends Packet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void decode(ChannelHandlerContext ctx, ByteBuf buffer)
 	{	

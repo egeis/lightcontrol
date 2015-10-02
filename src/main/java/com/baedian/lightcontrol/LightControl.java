@@ -59,43 +59,39 @@ public class LightControl
     public void buildBlockConfig()
     {    	
     	Map<String, Property> list = conf.getCategory("blocks").getValues();    
+    	conf.removeCategory(conf.getCategory("blocks"));
     	
     	if(UPDATE_MODE || list.isEmpty())
 		{
-    		Iterator iterator = Block.blockRegistry.iterator();
+    		Iterator<?> iterator = Block.blockRegistry.iterator();
 			
 			while(iterator.hasNext())
 	        {
 	        	Block block = (Block) iterator.next();
-	        	        	
-	        	if(block.getLightValue() > 0) {
-	        		if(DEBUG_MODE) logger.info(Block.blockRegistry.getNameForObject(block)+">>>"+block.getLightValue());
-	        		conf.get("blocks", Block.blockRegistry.getNameForObject(block), block.getLightValue()).getInt();
+	        	 
+	        	String name = Block.blockRegistry.getNameForObject(block);
+	        	int value = (list.containsKey(name))?list.get(name).getInt():block.getLightValue();
+	        		        	
+	        	if(value > 0) {
+	        		if(DEBUG_MODE) logger.info(name+">>>"+value);
+	        		conf.get("blocks", name, value);
 	        	}
 	        } 
-		
-			list = conf.getCategory("blocks").getValues();   
-		}
-    	
-    	
+		}    	
     }
     
     public void setupBlockLightValues()
     {
     	Map<String, Property> list = conf.getCategory("blocks").getValues();    
-    	Iterator iterator = list.entrySet().iterator();
-
-		conf.removeCategory(conf.getCategory("blocks"));
+    	Iterator<?> iterator = list.entrySet().iterator();
 
 		while(iterator.hasNext())
 		{
+			@SuppressWarnings("unchecked")
 			Map.Entry<String, Property> pair = (Map.Entry<String, Property>) iterator.next();
 			
 			if(Block.blockRegistry.containsKey(pair.getKey())) 
-			{
-        		conf.get("blocks", pair.getKey(), pair.getValue().getInt());
 				Block.getBlockFromName(pair.getKey()).setLightLevel(pair.getValue().getInt()/15.0f);				
-			}
 		}
     }
     
